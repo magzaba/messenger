@@ -81,5 +81,37 @@ public class TemplateEngineTest {
         assertEquals(expectedMessage, result);
     }
 
+    @Test
+    public void testGenerateMessage_SupportsLatin1CharactersInTemplate() {
+        // Arrange
+        String templateContent = "Café #{name}: Résumé subject - #{subject}";
+        template.setContent(templateContent);
+        client.setName("José");
+        client.setSubject("Crème brûlée");
+
+        // Act
+        String result = templateEngine.generateMessage(template, client);
+
+        // Assert
+        String expectedMessage = "Café José: Résumé subject - Crème brûlée";
+        assertEquals(expectedMessage, result);
+    }
+
+    @Test
+    public void testGenerateMessage_SupportsLatin1CharactersInVariables() {
+        // Arrange
+        String templateContent = "Hello #{name}, your favorite dish is #{subject}.";
+        template.setContent(templateContent);
+        client.setName("Niño");
+        client.setSubject("Jalapeño");
+
+        // Act
+        String result = templateEngine.generateMessage(template, client);
+
+        // Assert
+        String expectedMessage = "Hello Niño, your favorite dish is Jalapeño.";
+        assertEquals(expectedMessage, result);
+    }
+
 
 }
