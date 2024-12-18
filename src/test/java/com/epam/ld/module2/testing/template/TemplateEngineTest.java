@@ -65,4 +65,21 @@ public class TemplateEngineTest {
         String expectedMessage = "Dear John, we have no data on #{unused}.";
         assertEquals(expectedMessage, result);
     }
+
+    @Test
+    public void testGenerateMessage_IncludesAddressesPlaceholder() {
+        // Arrange
+        String templateContent = "To: #{addresses}";
+        template.setContent(templateContent);
+        client.setAddresses("john@example.com");
+
+        // Act
+        String result = templateEngine.generateMessage(template, client);
+
+        // Assert
+        String expectedMessage = "To: john@example.com";
+        assertEquals(expectedMessage, result);
+    }
+
+
 }

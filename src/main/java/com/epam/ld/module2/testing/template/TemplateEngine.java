@@ -18,6 +18,7 @@ public class TemplateEngine {
         strategies = new HashMap<>();
         strategies.put("name", new NamePlaceholderStrategy());
         strategies.put("subject", new SubjectPlaceholderStrategy());
+        strategies.put("addresses", new AddressesPlaceholderStrategy());
     }
 
     /**
