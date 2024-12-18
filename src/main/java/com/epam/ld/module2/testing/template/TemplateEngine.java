@@ -14,6 +14,9 @@ public class TemplateEngine {
      * @return the string
      */
     public String generateMessage(Template template, Client client) {
-        return null;
+        String message = template.getContent();
+        message = message.replace("#{name}", client.getName());
+        message = message.replace("#{subject}", client.getSubject());
+        return message;
     }
 }
