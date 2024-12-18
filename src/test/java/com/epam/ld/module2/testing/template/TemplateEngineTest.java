@@ -49,4 +49,20 @@ public class TemplateEngineTest {
         String expectedMessage = "Placeholder values must not be null or empty";
         assertEquals(expectedMessage, exception.getMessage());
     }
+
+    @Test
+    public void testGenerateMessage_IgnoresUnusedPlaceholders() {
+        // Arrange
+        String templateContent = "Dear #{name}, we have no data on #{unused}.";
+        template.setContent(templateContent);
+        client.setName("John");
+        client.setSubject("Java"); // 'subject' is not used in the template
+
+        // Act
+        String result = templateEngine.generateMessage(template, client);
+
+        // Assert
+        String expectedMessage = "Dear John, we have no data on #{unused}.";
+        assertEquals(expectedMessage, result);
+    }
 }
