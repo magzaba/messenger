@@ -15,8 +15,15 @@ public class TemplateEngine {
      */
     public String generateMessage(Template template, Client client) {
         String message = template.getContent();
-        message = message.replace("#{name}", client.getName());
-        message = message.replace("#{subject}", client.getSubject());
+        String name = client.getName();
+        String subject = client.getSubject();
+
+        if (name == null || name.isEmpty() || subject == null || subject.isEmpty()) {
+            throw new IllegalArgumentException("Placeholder values must not be null or empty");
+        }
+
+        message = message.replace("#{name}", name);
+        message = message.replace("#{subject}", subject);
         return message;
     }
 }
